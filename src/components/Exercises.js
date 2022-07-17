@@ -4,8 +4,8 @@ import { exerciseOption, fetchData } from '../utils/fetchData';
 import ExerciseCard from '../components/ExerciseCard';
 
 const Exercises = ({ bodyPart, exercises, setExercises }) => {
-  const [currentPage, setCurrentPage] = useState(1);
   const exercisesPerPage = 9;
+  const [currentPage, setCurrentPage] = useState(1);
 
   const paginate = (e, value) => {
     setCurrentPage(value);
@@ -18,6 +18,25 @@ const Exercises = ({ bodyPart, exercises, setExercises }) => {
     indexOfFirstExercise,
     indexOfLastExercise
   );
+
+  useEffect(() => {
+    let exerciseData = [];
+    const fetchExercisesData = async () => {
+      if (bodyPart === ' all') {
+        exerciseData = await fetchData(
+          'https://exercisedb.p.rapidapi.com/exercises',
+          exerciseOption
+        );
+      } else {
+        exerciseData = await fetchData(
+          `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodyPart}`,
+          exerciseOption
+        );
+      }
+      setExercises(exerciseData);
+    };
+    fetchExercisesData();
+  }, [bodyPart]);
 
   return (
     <Box id='exercises' sx={{ mt: { lg: '110px' } }} mt='20px' p='20px'>
