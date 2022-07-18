@@ -34,9 +34,9 @@ const Detail = ({ exerciseDetail }) => {
         </Typography>
         <Typography variant='h6'>
           Exercises keep you strong.{' '}
-          {name && name[0].toUpperCase() + name.slice(1)} is one of the best
-          exercises to target your {target}. It will help you improve your mood
-          and gain energy.
+          <span style={{ textTransform: 'capitalize' }}>{name}</span> is one of
+          the best exercises to target your {target}. It will help you improve
+          your mood and gain energy.
         </Typography>
         {extraDetail.map((item) => (
           <Stack key={item.name} direction='row' gap='24px' alignItems='center'>
